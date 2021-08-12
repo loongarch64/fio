@@ -263,8 +263,8 @@
 #define __NR_sys_vmsplice	294
 #endif
 
-/* Linux syscalls for aarch64 */
-#elif defined(ARCH_AARCH64_H)
+/* Linux syscalls for aarch64 and loongarch */
+#elif defined(ARCH_AARCH64_H) || defined(ARCH_LOONGARCH_H)
 #ifndef __NR_ioprio_set
 #define __NR_ioprio_set		30
 #define __NR_ioprio_get		31
