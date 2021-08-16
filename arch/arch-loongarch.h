@@ -7,14 +7,19 @@
 #define write_barrier()		__asm__ __volatile__("dbar 0": : :"memory")
 #define nop			__asm__ __volatile__("nop")
 
-#if __loongarch_xlen == 64
-#define CTZ "ctz.d"
-#define CTO "cto.d"
 static inline int arch_ffz(unsigned long bitmask)
 {
 	unsigned long count;
 	if (~bitmask == 0)	/* ffz() in lib/ffz.h does this. */
+#if __loongarch_xlen == 64
 		return 63;
+#define CTZ "ctz.d"
+#define CTO "cto.d"
+#else
+		return 31;
+#define CTZ "ctz.w"
+#define CTO "cto.w"
+#endif
 
 	__asm__ __volatile__ (CTZ " %0, %1\n\t"
 			      "bnez %0, 0f\n\t"
@@ -29,7 +34,5 @@ static inline int arch_ffz(unsigned long bitmask)
 }
 
 #define ARCH_HAVE_FFZ
-
-#endif
 
 #endif
