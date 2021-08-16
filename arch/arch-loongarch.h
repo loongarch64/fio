@@ -10,10 +10,6 @@
 #if __loongarch_xlen == 64
 #define CTZ "ctz.d"
 #define CTO "cto.d"
-#else
-#define CTZ "ctz.w"
-#define CTO "cto.w"
-#endif
 static inline int arch_ffz(unsigned long bitmask)
 {
 	unsigned long count;
@@ -33,5 +29,7 @@ static inline int arch_ffz(unsigned long bitmask)
 }
 
 #define ARCH_HAVE_FFZ
+
+#endif
 
 #endif
